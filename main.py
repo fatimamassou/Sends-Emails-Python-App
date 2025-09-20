@@ -12,32 +12,34 @@ with open("emails.txt", "r") as f:
 
 # Email content
 subject = "Application for a Job Opportunity"
-body = """\
-Dear Hiring Manager,
+body = "body"
 
-I am reaching out to express my interest in job opportunities at your company.
-Please find attached my CV for your consideration.
-
-Best regards,
-[Your Name]
-"""
+# Create SSL context
+context = ssl._create_unverified_context()
 
 # Send emails
-for recipient in recipients:
-    msg = EmailMessage()
-    msg["From"] = EMAIL_ADDRESS
-    msg["To"] = recipient
-    msg["Subject"] = subject
-    msg.set_content(body)
+with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
+    smtp.ehlo()
+    smtp.starttls(context=context)   # Upgrade to secure connection
+    smtp.ehlo()   # send email here
+    smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
 
-    # Attach CV
-    with open("CV.pdf", "rb") as cv:
-        msg.add_attachment(cv.read(), maintype="application", subtype="pdf", filename="CV.pdf")
+    for recipient in recipients:
+        msg = EmailMessage()
+        msg["From"] = EMAIL_ADDRESS
+        msg["To"] = recipient
+        msg["Subject"] = subject
+        msg.set_content(body)
 
-    # Send
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        # Attach CV
+        with open("CV.pdf", "rb") as cv:
+            msg.add_attachment(
+                cv.read(),
+                maintype="application",
+                subtype="pdf",
+                filename="CV.pdf"
+            )
+
         smtp.send_message(msg)
 
-print("✅ Emails sent successfully to all 5 recipients!")
+print("✅ Emails sent successfully to all recipients!")
