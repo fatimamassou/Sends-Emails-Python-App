@@ -1,8 +1,13 @@
-# 📧 Bulk Email Sender (Python SMTP)
+# 📧 Bulk Email Sender (Python SMTP + Tkinter GUI)
 
-A simple Python script that sends emails with a PDF attachment (CV) to multiple recipients using Gmail SMTP.
+A Python application that sends emails with a PDF attachment (CV) to multiple recipients using Gmail SMTP.
 
-This script reads email addresses from a text file and sends the same message and attachment to all recipients.
+This project includes:
+
+-  A CLI (script-based) version  
+-  A Tkinter desktop GUI version  
+
+Both versions send the same message and attachment to multiple recipients listed in a `.txt` file.
 
 
 
@@ -12,24 +17,31 @@ This script reads email addresses from a text file and sends the same message an
 - 📎 Attaches a PDF file (e.g., CV)  
 - 🔐 Secure connection using TLS  
 - 📤 Sends emails in bulk via Gmail SMTP  
+- 🖥️ Desktop interface built with Tkinter (GUI version)
 
 
 
-##  Built With
+## 🛠 Built With
 
 - Python 3  
 - smtplib  
 - ssl  
 - email.message  
+- Tkinter  
 
 
 
-##  Project Structure
+## 📂 Project Structure
 
 ```
-project-folder/
+bulk-email-sender/
 │
-├── send_email.py
+├── cli_version/
+│   └── send_email.py
+│
+├── tkinter_version/
+│   └── app.py
+│
 ├── emails.txt
 ├── CV.pdf
 └── README.md
@@ -37,13 +49,50 @@ project-folder/
 
 
 
-##  Setup Instructions
+# 🖥️ Version 1: CLI (Script Version)
+
+A simple terminal-based script.
+
+## ▶ How to Run
+
+```bash
+python send_email.py
+```
+
+Make sure to configure inside the script:
+
+```python
+EMAIL_ADDRESS = "your_email@gmail.com"
+EMAIL_PASSWORD = "your_app_password"
+```
+
+
+
+# 🪟 Version 2: Tkinter GUI Version
+
+A desktop interface that allows you to:
+
+- Enter your email and app password  
+- Select the emails file using file browser  
+- Select the CV PDF file  
+- Write subject and message  
+- Send emails with one click  
+
+## ▶ How to Run
+
+```bash
+python app.py
+```
+
+
+
+## ⚙️ Setup Instructions
 
 ### 1. Enable Gmail App Password
 
-- Enable **2-Step Verification** in your Google account.
-- Generate a **Gmail App Password**.
-- Use the App Password inside the script.
+- Enable **2-Step Verification** in your Google account  
+- Generate a **Gmail App Password**  
+- Use the App Password (not your real Gmail password)
 
 
 
@@ -59,33 +108,15 @@ example3@gmail.com
 
 
 
-### 3. Configure the Script
+## ⚠️ Notes
 
-Inside the Python file, update:
-
-```python
-EMAIL_ADDRESS = "your_email@gmail.com"
-EMAIL_PASSWORD = "your_app_password"
-```
+- Never use your real Gmail password always use an App Password  
+- Gmail may temporarily block sending if too many emails are sent at once  
+- This app sends the same message to all recipients  
+- Sending limits depend on your Gmail account type  
 
 
 
-### 4. Run the Script
+## ⚠️ Disclaimer
 
-```bash
-python send_email.py
-```
-
-
-
-##  Notes
-
-- Do not use your real Gmail password always use an App Password.
-- Gmail may temporarily block sending if too many emails are sent at once.
-- This script sends the same message to all recipients.
-
-
-
-##  Disclaimer
-
-Use responsibly. Sending unsolicited bulk emails may violate email service policies.
+Use responsibly. Sending unsolicited bulk emails may violate email service policies and anti-spam laws.
